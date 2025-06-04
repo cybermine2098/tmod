@@ -28,7 +28,7 @@ return{
     loc_vars = function(self,info_queue,card)
         return {vars = {card.ability.extra.chips}}
     end,
-    calculate = function(self,card,context) --calculation later
+    calculate = function(self,card,context)
         if context.setting_blind and not context.blueprint then
             local my_pos = nil
             for i = 1, #G.jokers.cards do
