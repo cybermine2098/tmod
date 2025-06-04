@@ -232,8 +232,8 @@ SMODS.Atlas{
             'destroy Joker to the right',
             'and permanently add {C:chips}Chips{}',
             'based on the Jokers rarity',
-            '{s:0.8,C:blue}+50{}{s:0.8} for {}{s:0.8,C:common}common{}{s:0.8}, {}{s:0.8,C:blue}+100{}{s:0.8} for {}{s:0.8,C:uncommon}uncommon{}{s:0.8},{}',
-            '{s:0.8,C:blue}+250{}{s:0.8} for {}{s:0.8,C:rare}rare{}{s:0.8}, and {}{s:0.8,C:blue}+1000{}{s:0.8} for {}{s:0.8,C:legendary}legendary{}{s:0.8}.{}',
+            '{s:0.8,C:blue}+20{}{s:0.8} for {}{s:0.8,C:common}common{}{s:0.8}, {}{s:0.8,C:blue}+40{}{s:0.8} for {}{s:0.8,C:uncommon}uncommon{}{s:0.8},{}',
+            '{s:0.8,C:blue}+100{}{s:0.8} for {}{s:0.8,C:rare}rare{}{s:0.8}, and {}{s:0.8,C:blue}+1000{}{s:0.8} for {}{s:0.8,C:legendary}legendary{}{s:0.8}.{}',
             '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips)'
         }
     },
@@ -278,7 +278,7 @@ SMODS.Atlas{
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             G.GAME.joker_buffer = 0
-                            card.ability.extra.chips = card.ability.extra.chips + 50
+                            card.ability.extra.chips = card.ability.extra.chips + 20
                             card:juice_up(0.8, 0.8)
                             sliced_card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
                             play_sound('slice1', 0.96 + math.random() * 0.08)
@@ -286,12 +286,29 @@ SMODS.Atlas{
                         end
                     }))
                     return {
-                        message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips + 50 } },
+                        message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips + 20 } },
                         colour = G.C.CHIPS,
                         no_juice = true
                     }
                 end
                 if G.jokers.cards[my_pos + 1].config.center.rarity == 2 or G.jokers.cards[my_pos + 1].config.center.rarity == "Uncommon" then
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.GAME.joker_buffer = 0
+                            card.ability.extra.chips = card.ability.extra.chips + 40
+                            card:juice_up(0.8, 0.8)
+                            sliced_card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
+                            play_sound('slice1', 0.96 + math.random() * 0.08)
+                            return true
+                        end
+                    }))
+                    return {
+                        message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips + 40 } },
+                        colour = G.C.CHIPS,
+                        no_juice = true
+                    }
+                end
+                if G.jokers.cards[my_pos + 1].config.center.rarity == 3 or G.jokers.cards[my_pos + 1].config.center.rarity == "Rare" then
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             G.GAME.joker_buffer = 0
@@ -304,23 +321,6 @@ SMODS.Atlas{
                     }))
                     return {
                         message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips + 100 } },
-                        colour = G.C.CHIPS,
-                        no_juice = true
-                    }
-                end
-                if G.jokers.cards[my_pos + 1].config.center.rarity == 3 or G.jokers.cards[my_pos + 1].config.center.rarity == "Rare" then
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            G.GAME.joker_buffer = 0
-                            card.ability.extra.chips = card.ability.extra.chips + 250
-                            card:juice_up(0.8, 0.8)
-                            sliced_card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
-                            play_sound('slice1', 0.96 + math.random() * 0.08)
-                            return true
-                        end
-                    }))
-                    return {
-                        message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips + 250 } },
                         colour = G.C.CHIPS,
                         no_juice = true
                     }
@@ -963,7 +963,7 @@ SMODS.Atlas{
         text = {
             '{C:mult}+12 {}Mult if played hand contains',
             'a {C:attention}Three of a Kind{}, and',
-            'an additional {X:red,C:white}X5 {} Mult if',
+            'an additional {X:red,C:white}X4 {} Mult if',
             '{C:attention}Ice Cube {}is held'
         }
     },
@@ -977,7 +977,7 @@ SMODS.Atlas{
     perishable_compat = true,
     pos = {x = 7, y = 1},
     config = { extra = {
-        mult = 12, Xmult = 5, type = 'Three of a Kind'
+        mult = 12, Xmult = 4, type = 'Three of a Kind'
     }
     },
     loc_vars = function(self,info_queue,card)
@@ -1702,7 +1702,8 @@ SMODS.Atlas{
     loc_txt = {
         name = 'Rocky', --DONE THIS JOKER IS DONE LOOK HERE THIS JOKER IS DONE OK THANK YOU FOR READING IT NOW SINCE ITS SO LONG ITS NOTICABLE.
         text = {
-            'When {C:attention}Blind{} is selected,',
+            '{C:green}#1# in #2#{} chance',
+            'when {C:attention}Blind{} is selected,',
             'add a random {C:attention}playing{}',
             '{C:attention}card{} with a random',
             '{C:attention}seal{}, {C:attention}edition{} and,',
@@ -1718,8 +1719,12 @@ SMODS.Atlas{
     eternal_compat = true,
     perishable_compat = true,
     pos = {x = 6, y = 2},
+    config = { extra = { odds = 8 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { (G.GAME and G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
+    end,
     calculate = function(self, card, context)
-        if context.first_hand_drawn then
+        if context.first_hand_drawn and (pseudorandom('vremade_8_ball') < G.GAME.probabilities.normal / card.ability.extra.odds) then
             local rocky_edi = math.random(1,4)
             local rocky_enhan = math.random(1,9)
             local rocky_seal = math.random(1,5)
