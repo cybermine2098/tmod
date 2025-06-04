@@ -13,11 +13,9 @@ local function loadFromDir(dirname, visited)
     visited = visited or {}
     local norm_dir = dirname:gsub("[/\\]+$", "")
     if visited[norm_dir] then
-        print("[BDFI] Skipping already visited directory: " .. norm_dir)
         return
     end
     visited[norm_dir] = true
-    print("[BDFI] Loading [.] from directory " .. norm_dir)
     local files = NFS.getDirectoryItems(norm_dir)
     local directories = NFS.getDirectoryItems(norm_dir, true)
     for _, file in ipairs(files) do

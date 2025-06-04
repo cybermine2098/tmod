@@ -1,0 +1,111 @@
+Oops! The game crashed:
+[SMODS BFDI "jokers/complete/tennisball.lua"]:32: attempt to index field 'extra' (a nil value)
+
+Additional Context:
+Balatro Version: 1.0.1o-FULL
+Modded Version: 1.0.0~BETA-0530b-STEAMODDED
+LÖVE Version: 11.5.0
+Lovely Version: 0.7.1
+Platform: Windows
+Steamodded Mods:
+    1: Battle for Jimbo by WusGud, Nitro, Caldox, Cyber98 [ID: BFDI]
+Lovely Mods:
+
+Stack Traceback
+===============
+(3) Lua method 'calculate' at file 'jokers/complete/tennisball.lua:32' (from mod with id BFDI)
+Local variables:
+ self = table: 0x02516118  {alerted:true, _saved_d_u:true, original_key:joker42, mod:table: 0x023368f0, unlocked:true, registered:true, rarity:2, cost:9, eternal_compat:true (more...)}
+ card = table: 0x02a9ff38  {click_offset:table: 0x026766a8, static_rotation:false, ambient_tilt:0.2, parent:table: 0x0240ccb0, T:table: 0x02676680, last_aligned:-1, extra_cost:0 (more...)}
+ context = table: 0x02bc5bc8  {main_eval:true, before:true, scoring_name:High Card, scoring_hand:table: 0x02a13478, full_hand:table: 0x02269408, cardarea:table: 0x0240ccb0 (more...)}
+ (*temporary) = table: 0x02c94380  {colour:table: 0x01fe7808, message:Upgrade!}
+ (*temporary) = nil
+ (*temporary) = string: "k_upgrade_ex"
+ (*temporary) = nil
+ (*temporary) = string: "Upgrade!"
+ (*temporary) = string: "attempt to index field 'extra' (a nil value)"
+(4) Lua method 'calculate_joker' at file 'card.lua:2539'
+Local variables:
+ self = table: 0x02a9ff38  {click_offset:table: 0x026766a8, static_rotation:false, ambient_tilt:0.2, parent:table: 0x0240ccb0, T:table: 0x02676680, last_aligned:-1, extra_cost:0 (more...)}
+ context = table: 0x02bc5bc8  {main_eval:true, before:true, scoring_name:High Card, scoring_hand:table: 0x02a13478, full_hand:table: 0x02269408, cardarea:table: 0x0240ccb0 (more...)}
+ obj = table: 0x02516118  {alerted:true, _saved_d_u:true, original_key:joker42, mod:table: 0x023368f0, unlocked:true, registered:true, rarity:2, cost:9, eternal_compat:true (more...)}
+(5) Lua global 'eval_card' at file 'functions/common_events.lua:722'
+Local variables:
+ card = table: 0x02a9ff38  {click_offset:table: 0x026766a8, static_rotation:false, ambient_tilt:0.2, parent:table: 0x0240ccb0, T:table: 0x02676680, last_aligned:-1, extra_cost:0 (more...)}
+ context = table: 0x02bc5bc8  {main_eval:true, before:true, scoring_name:High Card, scoring_hand:table: 0x02a13478, full_hand:table: 0x02269408, cardarea:table: 0x0240ccb0 (more...)}
+ ret = table: 0x021578b8  {}
+ post_trig = table: 0x02564a00  {}
+ areas = table: 0x02a62fe8  {1:table: 0x0240ccb0, 2:table: 0x02338320, 3:table: 0x029f6a48}
+ area_set = table: 0x02564a28  {table: 0x029f6a48:true, table: 0x02338320:true, table: 0x0240ccb0:true}
+(6) Lua field 'calculate_card_areas' at Steamodded file 'src/utils.lua:1632' 
+Local variables:
+ _type = string: "jokers"
+ context = table: 0x02bc5bc8  {main_eval:true, before:true, scoring_name:High Card, scoring_hand:table: 0x02a13478, full_hand:table: 0x02269408, cardarea:table: 0x0240ccb0 (more...)}
+ return_table = nil
+ args = table: 0x02e9e460  {joker_area:true}
+ flags = table: 0x02641eb8  {}
+ (for generator) = C function: builtin#6
+ (for state) = table: 0x02641ee0  {1:table: 0x0240ccb0, 2:table: 0x02338320, 3:table: 0x029f6a48}
+ (for control) = number: 1
+ _ = number: 1
+ area = table: 0x0240ccb0  {click_offset:table: 0x027c0f20, static_rotation:false, shuffle_amt:0, T:table: 0x0246d688, offset:table: 0x027e5ce0, role:table: 0x026d4720, last_aligned:-1 (more...)}
+ (for generator) = C function: builtin#6
+ (for state) = table: 0x02770aa0  {1:table: 0x02eb5598, 2:table: 0x02a9ff38, 3:table: 0x029b5e80}
+ (for control) = number: 2
+ _ = number: 2
+ _card = table: 0x02a9ff38  {click_offset:table: 0x026766a8, static_rotation:false, ambient_tilt:0.2, parent:table: 0x0240ccb0, T:table: 0x02676680, last_aligned:-1, extra_cost:0 (more...)}
+(7) Lua field 'calculate_context' at Steamodded file 'src/utils.lua:1745' 
+Local variables:
+ context = table: 0x02bc5bc8  {main_eval:true, before:true, scoring_name:High Card, scoring_hand:table: 0x02a13478, full_hand:table: 0x02269408, cardarea:table: 0x0240ccb0 (more...)}
+ return_table = nil
+ has_area = nil
+ flags = table: 0x02bc5cb8  {}
+ (*temporary) = number: 1
+(8) Lua field 'evaluate_play' at file 'functions/state_events.lua:597'
+Local variables:
+ e = nil
+ text = string: "High Card"
+ disp_text = string: "High Card"
+ poker_hands = table: 0x02e92f08  {Flush House:table: 0x02651538, Full House:table: 0x0283ecb0, top:table: 0x0283ecd8, Flush:table: 0x02fd8c50, Pair:table: 0x02bc8720, Four of a Kind:table: 0x026e5da0 (more...)}
+ scoring_hand = table: 0x02a13478  {1:table: 0x0218fea0}
+ non_loc_disp_text = string: "High Card"
+ final_scoring_hand = table: 0x02a13478  {1:table: 0x0218fea0}
+ hand_text_set = boolean: false
+(9) Lua field 'func' at file 'functions/state_events.lua:482'
+(10) Lua method 'handle' at file 'engine/event.lua:99'
+Local variables:
+ self = table: 0x028149a0  {start_timer:true, timer:TOTAL, blockable:true, trigger:immediate, func:function: 0x02ef6f70, delay:0, complete:false, time:589.05594713657, blocking:true (more...)}
+ _results = table: 0x02977968  {blocking:true, pause_skip:false, time_done:false, completed:false}
+(11) Lua method 'update' at file 'engine/event.lua:182'
+Local variables:
+ self = table: 0x026307c8  {queue_last_processed:215.2333333334, queues:table: 0x026307f0, queue_dt:0.016666666666667, queue_timer:215.2369990336}
+ dt = number: 0.00627599
+ forced = nil
+ (for generator) = C function: next
+ (for state) = table: 0x026307f0  {unlock:table: 0x026308e0, other:table: 0x02630980, tutorial:table: 0x02630930, base:table: 0x02630908, achievement:table: 0x02630958}
+ (for control) = number: nan
+ k = string: "base"
+ v = table: 0x02630908  {1:table: 0x029f4630, 2:table: 0x02ce8e58, 3:table: 0x02ce9440, 4:table: 0x02f23f48, 5:table: 0x028149a0, 6:table: 0x02a80db0, 7:table: 0x024df550 (more...)}
+ blocked = boolean: false
+ i = number: 5
+ results = table: 0x02977968  {blocking:true, pause_skip:false, time_done:false, completed:false}
+(12) Lua upvalue 'gameUpdateRef' at file 'game.lua:2552'
+Local variables:
+ self = table: 0x01fe2908  {F_GUIDE:false, F_CRASH_REPORTS:false, F_QUIT_BUTTON:true, HUD_tags:table: 0x02bcd468, F_ENGLISH_ONLY:false, viewed_stake:1, HUD:table: 0x02798810 (more...)}
+ dt = number: 0.00627599
+ http_resp = nil
+(13) Lua method 'update' at Steamodded file 'src/ui.lua:84' 
+Local variables:
+ self = table: 0x01fe2908  {F_GUIDE:false, F_CRASH_REPORTS:false, F_QUIT_BUTTON:true, HUD_tags:table: 0x02bcd468, F_ENGLISH_ONLY:false, viewed_stake:1, HUD:table: 0x02798810 (more...)}
+ dt = number: 0.00627599
+(14) Lua field 'update' at file 'main.lua:995'
+Local variables:
+ dt = number: 0.00627599
+(15) Lua function '?' at file 'main.lua:934' (best guess)
+(16) global C function 'xpcall'
+(17) LÖVE function at file 'boot.lua:377' (best guess)
+Local variables:
+ func = Lua function '?' (defined at line 905 of chunk main.lua)
+ inerror = boolean: true
+ deferErrhand = Lua function '(LÖVE Function)' (defined at line 348 of chunk [love "boot.lua"])
+ earlyinit = Lua function '(LÖVE Function)' (defined at line 355 of chunk [love "boot.lua"])
