@@ -3,6 +3,7 @@
 --- MOD_ID: BFDI
 --- MOD_AUTHOR: [WusGud, Nitro, Caldox, Cyber98]
 --- MOD_DESCRIPTION: A Balatro mod themed around BFDI which adds 75 brand new jokers to the game!
+-- extra comment
 SMODS.Atlas{
     key = 'Jokers',
     path = 'Jokers.png',
