@@ -19,7 +19,7 @@ return{
     perishable_compat = true,
     pos = {x = 1, y = 7},
     config = { extra = { 
-        chips = 75
+        chips = 50
     }
     },
     loc_vars = function(self,info_queue,center)
