@@ -20,7 +20,7 @@ return{
     eternal_compat = true,
     perishable_compat = true,
     pos = {x = 6, y = 2},
-    config = { extra = { odds = 8 } },
+    config = { extra = { odds = 4 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { (G.GAME and G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
     end,
