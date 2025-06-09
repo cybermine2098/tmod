@@ -14,7 +14,7 @@ return{
     },
     atlas = 'Jokers',
     rarity = 1,
-    cost = 9,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
