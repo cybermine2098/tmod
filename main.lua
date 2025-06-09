@@ -35,6 +35,10 @@ local function loadFromDir(dirname, visited)
             local f = chunk()
             print("[BDFI] Successfully loaded " .. f.loc_txt.name .. "!")
             SMODS.Joker(f)
+            if type(f.BDFI_LOAD) == "function" then
+                print("Loading executive BFDI function for "..f.loc_txt.name)
+                SMODS[f.BDFI_LOAD]()
+            end
         end
     end
     for _, dir in ipairs(directories) do
@@ -51,5 +55,6 @@ local mod_path = "" .. SMODS.current_mod.path
 -- Loading all ASSETS and whatnot
 local files = NFS.getDirectoryItems(mod_path .. "jokers")
 print("[BDFI] Mod path located:"..mod_path)
+
 -- updated this a little bit to support subdirectories
 loadFromDir(mod_path .. "jokers")

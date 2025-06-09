@@ -26,7 +26,7 @@ return{
                 center.ability.extra.chips, 
                 center.ability.extra.Xmult,
                 center.ability.extra.every,
-                localize { type = 'variable', key = (card.ability.extra.loyalty_remaining == 0 and 'loyalty_active' or 'loyalty_inactive'), vars = { card.ability.extra.loyalty_remaining } }
+                localize { type = 'variable', key = (center.ability.extra.loyalty_remaining == 0 and 'loyalty_active' or 'loyalty_inactive'), vars = { center.ability.extra.loyalty_remaining } }
             }
         }
     end,
