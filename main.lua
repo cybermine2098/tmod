@@ -4,12 +4,15 @@
 --- MOD_AUTHOR: [WusGud, Nitro, Caldox, Cyber98]
 --- MOD_DESCRIPTION: A Balatro mod themed around BFDI which adds 75 brand new jokers to the game!
 -- extra comment
+
+
 SMODS.Atlas{
     key = 'Jokers',
     path = 'Jokers.png',
     px = 71,
     py = 95
 }
+
 local function loadFromDir(dirname, visited)
     visited = visited or {}
     local norm_dir = dirname:gsub("[/\\]+$", "")

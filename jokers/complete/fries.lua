@@ -28,7 +28,7 @@ return{
     calculate = function(self,card,context)
         if context.end_of_round and context.game_over == false then
             local fries_tag = math.random(1,23)
-            local tag_var = tag_uncommon
+            local tag_var = ('tag_uncommon')
             if fries_tag == 1 then
                 tag_var = ('tag_uncommon')
             end
