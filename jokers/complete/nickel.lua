@@ -10,7 +10,7 @@ return{
         }
     },
     atlas = 'Jokers',
-    rarity = 2,
+    rarity = 3,
     cost = 6,
     unlocked = true,
     discovered = false,
