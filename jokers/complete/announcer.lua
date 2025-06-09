@@ -50,16 +50,7 @@ return{
             end
         end
     end,
-    local function reset_vremade_ancient_card()
-        G.GAME.current_round.vremade_ancient_card = G.GAME.current_round.vremade_ancient_card or { suit = 'Spades' }
-        local ancient_suits = {}
-        for k, v in ipairs({ 'Spades', 'Hearts', 'Clubs', 'Diamonds' }) do
-            if v ~= G.GAME.current_round.vremade_ancient_card.suit then ancient_suits[#ancient_suits + 1] = v end
-        end
-        local ancient_card = pseudorandom_element(ancient_suits, pseudoseed('vremade_ancient' .. G.GAME.round_resets.ante))
-        G.GAME.current_round.vremade_ancient_card.suit = ancient_card
-    end,
-    function SMODS.current_mod.reset_game_globals(run_start)
-        reset_vremade_ancient_card()
+    reset_game_globals = function(run_start)
+        require("libs/reset_vremade_ancient").reset_vremade_ancient_card()
     end
 }

@@ -32,7 +32,6 @@ return{
                 chip_mod = card.ability.extra.chips,
                 message = '+' .. card.ability.extra.chips,
                 color = G.C.CHIPS,
-                card = card,
                 mult = card.ability.extra.mult,
                 message = '+' .. card.ability.extra.mult,
                 color = G.C.MULT
