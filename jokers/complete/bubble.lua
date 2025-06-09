@@ -58,7 +58,7 @@ return{
                     end
                 }))
                 return {
-                    message = localize('k_extinct_ex')
+                    message = 'popped!'
                 }
             else
                 card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
