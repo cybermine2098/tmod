@@ -1,9 +1,9 @@
 return{
-     key = 'joker37',
+    key = 'joker37',
     loc_txt = {
         name = 'David', --DONE THIS JOKER IS DONE LOOK HERE THIS JOKER IS DONE OK THANK YOU FOR READING IT NOW SINCE ITS SO LONG ITS NOTICABLE.
         text = {
-            'Aw seriously!'
+            'Aw, seriously!'
         }
     },
     atlas = 'Jokers',
@@ -16,7 +16,7 @@ return{
     perishable_compat = true,
     pos = {x = 0, y = 3},
     config = { extra = {
-        slots = 2, rounds = 6
+        slots = 1, rounds = 6
     }
     },
     loc_vars = function(self,info_queue,card)
@@ -28,13 +28,35 @@ return{
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds == 0 then
-                G.jokers.config.card_limit = G.jokers.config.card_limit + 2
-                card.config.center.loc_txt.text = { 'testing testing 123' }
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('tarot1')
+                        card.T.r = -0.2
+                        card:juice_up(0.3, 0.4)
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.3,
+                            blockable = false,
+                            func = function()
+                                card:remove()
+                                return true
+                            end
+                        }))
+                        return true
+                    end
+                }))
+                G.jokers.config.card_limit = G.jokers.config.card_limit + 1
+                G.GAME.pool_flags.vremade_gros_michel_extinct = true
                 return {
-                    message = ('+2 Joker Slots'),
-                    colour = G.C.RED
+                    message = ('Aw, seriously!'),
+                    colour = G.C.SECONDARY_SET.Spectral
                 }
             end
         end
-    end 
+    end,
+    in_pool = function(self, args)
+        return not G.GAME.pool_flags.vremade_gros_michel_extinct
+    end
 }

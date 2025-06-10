@@ -4,6 +4,7 @@ return{
         name = 'Ruby',
         text = {
             'When {C:attention}Blind{} is selected',
+            '{C:green}#9# in #10#{} chance that',
             'this Joker either gains',
             'between {C:attention}+10{} or {C:attention}+30{} {C:mult}Mult{}',
             'or {C:chips}Chips{} or between',
@@ -23,14 +24,14 @@ return{
     perishable_compat = true,
     pos = {x = 0, y = 6},
     config = { extra = {
-        mult = 0, chips = 0, Xmult = 1, dollars = 0, mult_mod = 10, chips_mod = 10, Xmult_mod = 1, increase = 1
+        mult = 0, chips = 0, Xmult = 1, dollars = 0, mult_mod = 10, chips_mod = 10, Xmult_mod = 1, increase = 1, odds = 3
     }
     },
     loc_vars = function(self,info_queue,center)
-        return {vars = {center.ability.extra.mult, center.ability.extra.chips, center.ability.extra.Xmult, center.ability.extra.dollars, center.ability.extra.mult_mod, center.ability.extra.chips_mod, center.ability.extra.Xmult_mod, center.ability.extra.increase}}
+        return {vars = {center.ability.extra.mult, center.ability.extra.chips, center.ability.extra.Xmult, center.ability.extra.dollars, center.ability.extra.mult_mod, center.ability.extra.chips_mod, center.ability.extra.Xmult_mod, center.ability.extra.increase, (G.GAME and G.GAME.probabilities.normal or 1), center.ability.extra.odds }}
     end,
     calculate = function(self,card,context)
-        if context.setting_blind then
+        if context.setting_blind and (pseudorandom('vremade_8_ball') < G.GAME.probabilities.normal / card.ability.extra.odds) then
             local ruby_num = math.random(1, 4)
             local ruby_random = math.random(1, 3)
             if ruby_num == 1 then
