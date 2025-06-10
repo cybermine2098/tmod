@@ -4,16 +4,32 @@
 --- MOD_AUTHOR: [WusGud, Nitro, Caldox, Cyber98]
 --- MOD_DESCRIPTION: A Balatro mod themed around BFDI which adds 75 brand new jokers to the game!
 -- extra comment
-
-
-SMODS.Atlas{
+SMODS.Atlas {
     key = 'Jokers',
     path = 'Jokers.png',
     px = 71,
     py = 95
 }
 local JOKERS = {}
-local function loadFromDir(dirname, visited)
+local CACHEDJOKERS = {}
+local loadAllJokers = function()
+    local mod_path = "" .. SMODS.current_mod.path
+    -- Loading all ASSETS and whatnot
+    local files = NFS.getDirectoryItems(mod_path .. "jokers")
+    print("[BDFI] Mod path located:" .. mod_path)
+    loadFromDir(mod_path .. "jokers")
+    table.sort(CACHEDJOKERS, function(a, b)
+        if a.rarity == b.rarity then
+            return (a.loc_txt.name or ""):lower() < (b.loc_txt.name or ""):lower()
+        else
+            return (a.rarity or 0) < (b.rarity or 0)
+        end
+    end)
+    for _, joker in ipairs(CACHEDJOKERS) do
+        SMODS.Joker(joker)
+    end
+end
+function loadFromDir(dirname, visited)
     visited = visited or {}
     local norm_dir = dirname:gsub("[/\\]+$", "")
     if visited[norm_dir] then
@@ -35,8 +51,7 @@ local function loadFromDir(dirname, visited)
             local f = chunk()
             print("[BDFI] Successfully loaded " .. f.loc_txt.name .. "!")
             if not JOKERS[f.loc_txt.name] then
-                JOKERS[f.loc_txt.name] = f
-                SMODS.Joker(f)
+                table.insert(CACHEDJOKERS, f)
             else
                 print("[BDFI] Warning: Joker with name '" .. f.loc_txt.name .. "' already exists, skipping duplicate.")
             end
@@ -59,12 +74,7 @@ local function loadStartups()
         end
     end
 end
-local mod_path = "" .. SMODS.current_mod.path
--- Loading all ASSETS and whatnot
-local files = NFS.getDirectoryItems(mod_path .. "jokers")
-print("[BDFI] Mod path located:"..mod_path)
-
+loadAllJokers()
 -- updated this a little bit to support subdirectories
-loadFromDir(mod_path .. "jokers")
 loadStartups()
 print("[BDFI] All jokers loaded successfully!")
