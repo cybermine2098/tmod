@@ -27,10 +27,11 @@ return{
         return { vars = { localize('Flush','poker_hands'), localize(suit, 'suits_singular'), colours = { G.C.SUITS[suit] } } }
     end,
     calculate = function(self, card, context)
+        local suit = (G.GAME.current_round and G.GAME.current_round.vremade_ancient_card and G.GAME.current_round.vremade_ancient_card.suit) or 'Spades'
         if context.before and context.main_eval and not context.blueprint and (next(context.poker_hands['Flush']) or next(context.poker_hands['Straight Flush']) or next(context.poker_hands['Flush House']) or next(context.poker_hands['Flush Five'])) then
             local suits = {}
             for _, scored_card in ipairs(context.scoring_hand) do
-                if scored_card:is_suit(G.GAME.current_round.vremade_ancient_card.suit, nil, true) then
+                if scored_card:is_suit(suit, nil, true) then
                     suits[#suits + 1] = scored_card
                     scored_card:set_ability('m_lucky', nil, true)
                     G.E_MANAGER:add_event(Event({
@@ -50,7 +51,20 @@ return{
             end
         end
     end,
-    reset_game_globals = function(run_start)
-        require("libs/reset_vremade_ancient").reset_vremade_ancient_card()
+    BDFI_LOAD = function(self, G, ...)
+        return self:reset_vremade_ancient_card(G, ...)
+    end,
+    reset_vremade_ancient_card = function(self, G)
+        if not G or not G.GAME or not G.GAME.current_round or not G.GAME.round_resets then
+            -- Not in a valid game state, skip initialization
+            return
+        end
+        G.GAME.current_round.vremade_ancient_card = G.GAME.current_round.vremade_ancient_card or { suit = 'Spades' }
+        local ancient_suits = {}
+        for k, v in ipairs({ 'Spades', 'Hearts', 'Clubs', 'Diamonds' }) do
+            if v ~= G.GAME.current_round.vremade_ancient_card.suit then ancient_suits[#ancient_suits + 1] = v end
+        end
+        local ancient_card = pseudorandom_element(ancient_suits, pseudoseed('vremade_ancient' .. G.GAME.round_resets.ante))
+        G.GAME.current_round.vremade_ancient_card.suit = ancient_card
     end
 }

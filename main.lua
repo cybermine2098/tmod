@@ -12,7 +12,7 @@ SMODS.Atlas{
     px = 71,
     py = 95
 }
-
+local JOKERS = {}
 local function loadFromDir(dirname, visited)
     visited = visited or {}
     local norm_dir = dirname:gsub("[/\\]+$", "")
@@ -34,7 +34,12 @@ local function loadFromDir(dirname, visited)
             end
             local f = chunk()
             print("[BDFI] Successfully loaded " .. f.loc_txt.name .. "!")
-            SMODS.Joker(f)
+            if not JOKERS[f.loc_txt.name] then
+                JOKERS[f.loc_txt.name] = f
+                SMODS.Joker(f)
+            else
+                print("[BDFI] Warning: Joker with name '" .. f.loc_txt.name .. "' already exists, skipping duplicate.")
+            end
         end
     end
     for _, dir in ipairs(directories) do
@@ -47,9 +52,19 @@ local function loadFromDir(dirname, visited)
         end
     end
 end
+local function loadStartups()
+    for name, joker in pairs(JOKERS) do
+        if type(joker.BDFI_LOAD) == "function" then
+            joker:BDFI_LOAD(G)
+        end
+    end
+end
 local mod_path = "" .. SMODS.current_mod.path
 -- Loading all ASSETS and whatnot
 local files = NFS.getDirectoryItems(mod_path .. "jokers")
 print("[BDFI] Mod path located:"..mod_path)
+
 -- updated this a little bit to support subdirectories
 loadFromDir(mod_path .. "jokers")
+loadStartups()
+print("[BDFI] All jokers loaded successfully!")
