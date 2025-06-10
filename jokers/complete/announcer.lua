@@ -27,10 +27,11 @@ return{
         return { vars = { localize('Flush','poker_hands'), localize(suit, 'suits_singular'), colours = { G.C.SUITS[suit] } } }
     end,
     calculate = function(self, card, context)
+        local suit = (G.GAME.current_round and G.GAME.current_round.vremade_ancient_card and G.GAME.current_round.vremade_ancient_card.suit) or 'Spades'
         if context.before and context.main_eval and not context.blueprint and (next(context.poker_hands['Flush']) or next(context.poker_hands['Straight Flush']) or next(context.poker_hands['Flush House']) or next(context.poker_hands['Flush Five'])) then
             local suits = {}
             for _, scored_card in ipairs(context.scoring_hand) do
-                if scored_card:is_suit(G.GAME.current_round.vremade_ancient_card.suit, nil, true) then
+                if scored_card:is_suit(suit, nil, true) then
                     suits[#suits + 1] = scored_card
                     scored_card:set_ability('m_lucky', nil, true)
                     G.E_MANAGER:add_event(Event({
@@ -50,16 +51,14 @@ return{
             end
         end
     end,
-    BDFI_LOAD = function()
-        return{
-            current_mod = {
-                reset_game_globals = function(run_start)
-                    this.reset_vremade_ancient_card()
-                end
-            }
-        }
+    BDFI_LOAD = function(self, G, ...)
+        return self:reset_vremade_ancient_card(G, ...)
     end,
-    reset_vremade_ancient_card = function ()
+    reset_vremade_ancient_card = function(self, G)
+        if not G or not G.GAME or not G.GAME.current_round or not G.GAME.round_resets then
+            -- Not in a valid game state, skip initialization
+            return
+        end
         G.GAME.current_round.vremade_ancient_card = G.GAME.current_round.vremade_ancient_card or { suit = 'Spades' }
         local ancient_suits = {}
         for k, v in ipairs({ 'Spades', 'Hearts', 'Clubs', 'Diamonds' }) do
