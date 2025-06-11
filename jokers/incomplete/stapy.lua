@@ -46,11 +46,13 @@ return{
                     if not SMODS.has_enhancement(raised_card, 'm_bonus') then
                         raised_card:set_ability('m_bonus', true)
                         return {
-                            message = 'Bonus!'
+                            message = 'Stapled!',
+                            colour = G.C.CHIPS
                         }
                     else
                         return {
-                            message = 'Already Bonus!'
+                            message = 'Already Stapled!',
+                            colour = G.C.CHIPS
                         }
                     end
                 end

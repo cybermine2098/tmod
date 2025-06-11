@@ -29,7 +29,7 @@ return{
                 card = card,
                 Emult_mod = card.ability.extra.Emult,
                 message = '^' .. card.ability.extra.Emult,
-                color = G.C.MULT
+                color = G.C.GREEN
             }
         end
     end
